@@ -1,0 +1,39 @@
+*:/streakset $username $streak = >>>
+	if(has_permission('streakpatch.setstreak')) {
+		#Obtains player info
+		@player = puuid($username, true);
+
+		#Persistent Storage Variables
+		@day = 'day';
+		@num = 'num';
+		
+		#Gets Current Streak
+		@numthen = get_value(@player.@num);
+		
+		#Forces new streak
+		store_value(@player.@num, $streak);
+		store_value(@player.@day, time());
+	} else {
+	msg('[StreakPatch] You do not have permission to use this command!');
+	}
+<<<
+*:/streak = >>>
+	#Obtains player info
+	@player = puuid(player(), true);
+	
+	#Persistent Storage Variables
+	@day = 'day';
+	@num = 'num';
+	
+	#Queries Player's Data
+	@daythen = get_value(@player.@day);
+	@numthen = get_value(@player.@num);
+	
+	#Calculates Next Time
+	@timestamp = @daythen - time() + 86400000;
+	@nextreward = @timestamp / 3600000;
+	
+	msg('[StreakPatch] Your current streak is '.@numthen);
+	msg('[StreakPatch] Your next reward will be available in '.round(@nextreward).' hours');
+	
+<<<
